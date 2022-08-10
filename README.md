@@ -1,2 +1,27 @@
 # yt
-yt is just a YouTube video download script for Termux.
+**`yt` is just a YouTube video download script for Termux.**  
+### Tips
+- Move `yt` file into your preferred bin folder.  
+- Run `yt` in different Termux sessions to download multiple videos in parallel.  
+### Setup example for Termux  
+- Copy and paste this into Termux.
+```bash
+termux-setup-storage && pkg up -y && pkg in -y git python ffmpeg && python -m pip install --upgrade pip && pip install yt-dlp && git clone https://github.com/RellikJaeger/yt && cd yt && chmod +x yt && mv yt ~/../usr/bin && cd .. && rm -rf yt
+```
+### Usage example
+- Copy and paste this into Termux.
+```bash
+yt https://youtu.be/LxC0kD-GuBQ
+```
+### You can also download multiple videos in series (one by one)
+- Copy and paste this into Termux.
+```bash
+yt https://youtu.be/X5e2GrxQGlA https://youtu.be/Pj7H6j9lvPI https://youtu.be/OosiksDo_OA
+```
+### Output file path
+- You can find your downloaded video file in the internal storage "Download" folder.  
+#### Example paths:
+| "/sdcard/Download/Video Name.mp4"             |
+| --- |
+| "/storage/emulated/0/Download/Video Name.mp4" |
+> PS: Need to update some parts for general purpose.
