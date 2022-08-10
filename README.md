@@ -10,7 +10,7 @@ There are currently no other options to choose quality.
 ### Setup example for Termux  
 - Copy and paste this into Termux.
 ```bash
-termux-setup-storage && pkg up -y && pkg in -y git python ffmpeg && python -m pip install --upgrade pip && pip install yt-dlp && git clone https://github.com/RellikJaeger/yt && cd yt && chmod +x yt && mv yt ~/../usr/bin && cd .. && rm -rf yt
+yes | termux-setup-storage && pkg up -y && pkg in -y git python ffmpeg && python -m pip install --upgrade pip && pip install yt-dlp && git clone https://github.com/RellikJaeger/yt && cd yt && chmod +x yt && mv yt ~/../usr/bin && cd .. && rm -rf yt
 ```
 ### Usage example
 - Copy and paste this into Termux.
