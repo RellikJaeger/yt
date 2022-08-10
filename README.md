@@ -1,5 +1,9 @@
 # yt
 **`yt` is just a YouTube video download script for Termux.**  
+> Video quality is automatically selected from the best quality starting at 1080p to lower.  
+This is a minimal script to download YouTube videos in Termux without extra effort.  
+There are currently no other options to choose quality.  
+
 ### Tips
 - Move `yt` file into your preferred bin folder.  
 - Run `yt` in different Termux sessions to download multiple videos in parallel.  
