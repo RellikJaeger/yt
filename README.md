@@ -31,5 +31,5 @@ yt https://youtu.be/X5e2GrxQGlA https://youtu.be/Pj7H6j9lvPI https://youtu.be/Oo
 ### Output file path
 - You can find your downloaded video file in the "%UserProfile%\Downloads\Video\" folder.  
 #### Example paths:
-| "C:\Users\<Username>\Downloads\Video\Video Name.mp4"             |
+| "C:\Users/\<Username>\Downloads\Video\Video Name.mp4"             |
 > PS: Need to update some parts for general purpose.
