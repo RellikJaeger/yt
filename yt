@@ -1,5 +1,5 @@
 mkdir -p /sdcard/Download
 cd /sdcard/Download
 for url in $*; do
-	yt-dlp -o "%(title)s.%(ext)s" -f bestvideo[height\<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best $url
+	yt-dlp -o "%(title)s.%(ext)s" -f bestvideo[height\<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --mtime $url
 done
