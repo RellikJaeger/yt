@@ -1,4 +1,4 @@
-# yt
+# yt version: v0.2.2, date: 10/11/2022 (Tue)
 **`yt` is just a YouTube video download script for Windows.**  
 > Video quality is automatically selected from the best quality starting at 1080p to lower.  
 This is a minimal script to download YouTube videos using Windows cmd without extra effort.  
@@ -10,7 +10,7 @@ There are currently no other options to choose quality.
 ### Setup example for Windows  
 - Copy and paste this into cmd.
 ```cmd
-powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp
+powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo phantomjs && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp
 ```
 <br><br>
 ## IMPORTANT: `&` and `;` are not allowed in cmd arguments! Check your YouTube URLs before pressing `Enter`.
@@ -23,11 +23,6 @@ powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb ht
 yt https://youtu.be/LxC0kD-GuBQ
 ```
 ## IMPORTANT: Series download feature is removed in this Windows version for multiple reasons!
-### You can also download multiple videos in series (one by one)
-- Copy and paste this into cmd.
-```cmd
-yt https://youtu.be/X5e2GrxQGlA https://youtu.be/Pj7H6j9lvPI https://youtu.be/OosiksDo_OA
-```
 ### Output file path
 - You can find your downloaded video file in the "%UserProfile%\Downloads\Video\" folder.  
 #### Example output path:
