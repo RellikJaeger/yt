@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-
+set yt_version=version: v0.2.3, date: 10/12/2022 (Wed^)
 if "%*" equ "" (goto :eof)
 
 if "%1" equ "-h" (
@@ -18,7 +18,7 @@ if "%1" equ "-h" (
 	goto :eof
 )
 if "%1" equ "-v" (
-	echo yt version: v0.2.3, date: 10/12/2022 (Wed^)
+	echo yt %yt_version%
 	goto :eof
 )
 if "%1" equ "up" (goto :upgrade)
@@ -77,5 +77,5 @@ goto :eof
 
 :upgrade
 powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo phantomjs && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp
-
+echo %yt_version%
 :eof
