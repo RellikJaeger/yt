@@ -77,7 +77,7 @@ goto :eof
 :p360
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
-yt-dlp -o "%%(title)s.%%(ext)s" -f "18/best[ext=mp4]/best" --mtime "!URLs!"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "134+140/18/best[ext=mp4]/best" --mtime "!URLs!"
 move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
 goto :eof
 
