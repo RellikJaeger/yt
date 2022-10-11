@@ -26,8 +26,9 @@ if "%1" equ "mp3" (goto :mp3)
 
 set URLs=%*
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+pushd "%userprofile%\Downloads\Video\"
 yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "!URLs!"
-move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+popd
 goto :eof
 
 :version
@@ -56,29 +57,33 @@ goto :eof
 :p1080
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+pushd "%userprofile%\Downloads\Video\"
 yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "!URLs!"
-move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+popd
 goto :eof
 
 :p720
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+pushd "%userprofile%\Downloads\Video\"
 yt-dlp -o "%%(title)s.%%(ext)s" -f "22/best[ext=mp4]/best" --mtime "!URLs!"
-move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+popd
 goto :eof
 
 :p480
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+pushd "%userprofile%\Downloads\Video\"
 yt-dlp -o "%%(title)s.%%(ext)s" -f "397+140/135+140/bestvideo[width<=854][height<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "!URLs!"
-move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+popd
 goto :eof
 
 :p360
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+pushd "%userprofile%\Downloads\Video\"
 yt-dlp -o "%%(title)s.%%(ext)s" -f "134+140/18/best[ext=mp4]/best" --mtime "!URLs!"
-move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+popd
 goto :eof
 
 :p240
@@ -91,12 +96,10 @@ goto :eof
 
 :mp3
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
-if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Music\")
+if not exist "%userprofile%\Downloads\Music\" (mkdir "%userprofile%\Downloads\Music\")
+pushd "%userprofile%\Downloads\Music\"
 yt-dlp --extract-audio --audio-format mp3 -o "%%(title)s.%%(ext)s" -f "bestaudio[ext=m4a]/bestaudio" --mtime "!URLs!"
-for %%i in (*.mp3) do (
-	move /y "%%i" "%userprofile%\Downloads\Music\">nul || goto :move_error
-	echo Moved "%%i" into "%userprofile%\Downloads\Music\" folder.
-)
+popd
 goto :eof
 
 :move_error
