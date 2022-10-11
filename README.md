@@ -1,4 +1,4 @@
-# yt version: v0.2.2, date: 10/11/2022 (Tue)
+# yt version: v0.2.3, date: 10/12/2022 (Tue)
 **`yt` is just a YouTube video download script for Windows.**  
 > Video quality is automatically selected from the best quality starting at 1080p to lower.  
 This is a minimal script to download YouTube videos using Windows cmd without extra effort.  
