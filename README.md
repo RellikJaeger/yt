@@ -12,17 +12,19 @@ There are currently no other options to choose quality.
 ```cmd
 powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo phantomjs && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp && echo. && cls && yt -v && yt -h
 ```
-| Commands        | Alias                   | Description
-|--=--------------|-------------------------|-----------------------------------
-| ^>yt <url>       | 1080 <url>              | Download best mp4 (1080p to lower)
-| >yt 1080 <url>  |                         | Download 1080p mp4
-| >yt 720 <url>   |                         | Download 720p mp4
-| >yt 480 <url>   |                         | Download 480p mp4
-| >yt 360 <url>   |                         | Download 360p mp4
-| >yt mp3 <url>   |                         | Download best mp3
-| >yt help        | -h, --help              | To see this help page
-| >yt version     | -v, -version, --version | Check yt version
-| >yt upgrade     | -u, up                  | Upgrade yt (self-reinstallation)
+
+### Available commands
+| Commands         | Alias                         | Description
+|------------------|-------------------------------|-----------------------------------
+| `yt <url>`       | `1080 <url>`                  | Download best mp4 (1080p to lower)
+| `yt 1080 <url>`  |                               | Download 1080p mp4
+| `yt 720 <url>`   |                               | Download 720p mp4
+| `yt 480 <url>`   |                               | Download 480p mp4
+| `yt 360 <url>`   |                               | Download 360p mp4
+| `yt mp3 <url>`   |                               | Download best mp3
+| `yt help`        | `-h`, `--help`                | To see this help page
+| `yt version`     | `-v`, `-version`, `--version` | Check yt version
+| `yt upgrade`     | `-u`, `up`                    | Upgrade yt (self-reinstallation)
 
 <br><br>
 ## IMPORTANT: `&` and `;` are not allowed in cmd arguments! Check your YouTube URLs before pressing `Enter`.
