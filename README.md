@@ -10,7 +10,7 @@ There are currently no other options to choose quality.
 ### Setup example for Windows  
 - Copy and paste this into cmd.
 ```cmd
-powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo && scoop bucket add extras && scoop install python ffmpeg busybox && python -m pip install --upgrade pip && pip install yt-dlp && rm -rf "yt\" && git clone -b Windows https://github.com/RellikJaeger/yt && cd "yt\" && sudo cmd /c move /y yt.bat "%SystemRoot%" && cd .. && rm -rf "yt\"
+powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp
 ```
 <br><br>
 ## IMPORTANT: `&` and `;` are not allowed in cmd arguments! Check your YouTube URLs before pressing `Enter`.
