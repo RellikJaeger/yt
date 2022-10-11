@@ -31,6 +31,7 @@ move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
 goto :eof
 
 :version
+title yt for Windows !yt_version!
 echo.
 echo   yt !yt_version!
 goto :eof
