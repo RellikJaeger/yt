@@ -3,16 +3,76 @@ setlocal enabledelayedexpansion
 
 if "%*" equ "" (goto :eof)
 
-if "%1" equ "-v" (
-	echo yt version: v0.2.2, date: 10/11/2022 (Tue^)
+if "%1" equ "-h" (
+	echo Commands       |  Description
+	echo ---------------+---------------------------------------------
+	echo yt -h          |  To see this help page.
+	echo yt -v          |  Check yt version.
+	echo yt up          |  Upgrade (reinstall) yt.
+	echo yt <url>       |  Download the best mp4 starting from 1080p.
+	echo yt 1080 <url>  |  Download 1080p mp4.
+	echo yt 720 <url>   |  Download 720p mp4.
+	echo yt 480 <url>   |  Download 480p mp4.
+	echo yt 360 <url>   |  Download 360p mp4.
+	echo yt mp3 <url>   |  Download the best mp3.
 	goto :eof
 )
-
+if "%1" equ "-v" (
+	echo yt version: v0.2.2, date: 10/12/2022 (Wed^)
+	goto :eof
+)
 if "%1" equ "up" (goto :upgrade)
+if "%1" equ "720" (goto :720)
+if "%1" equ "480" (goto :480)
+if "%1" equ "360" (goto :360)
+if "%1" equ "240" (goto :240)
+if "%1" equ "144" (goto :144)
+if "%1" equ "mp3" (goto :mp3)
 
+:1080
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
-yt-dlp -o "%%(title)s.%%(ext)s" -f "bestvideo[width<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "%*"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "%*"
 move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+goto :eof
+
+:720
+if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+yt-dlp -o "%%(title)s.%%(ext)s" -f "22/best[ext=mp4]/best" --mtime "%*"
+move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+goto :eof
+
+:480
+if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+yt-dlp -o "%%(title)s.%%(ext)s" -f "397+140/135+140/bestvideo[width<=854][height<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "%*"
+move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+goto :eof
+
+:360
+if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
+yt-dlp -o "%%(title)s.%%(ext)s" -f "18/best[ext=mp4]/best" --mtime "%*"
+move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
+goto :eof
+
+:240
+echo 240p is not implemented.
+goto :eof
+
+:144
+echo 144p is not implemented.
+goto :eof
+
+:mp3
+if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Music\")
+yt-dlp --extract-audio --audio-format mp3 -o "%%(title)s.%%(ext)s" -f "bestaudio[ext=m4a]/bestaudio" --mtime "%*"
+for %%i in (*.mp3) do (
+	move /y "%%i" "%userprofile%\Downloads\Music\">nul || goto :move_error
+	echo Moved "%%i" into "%userprofile%\Downloads\Music\" folder.
+)
+goto :eof
+
+:move_error
+echo An error occurred while moving the downloaded file.
+echo Please check inside the "%userprofile%" folder.
 goto :eof
 
 :upgrade
