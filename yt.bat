@@ -3,7 +3,10 @@ setlocal enabledelayedexpansion
 
 if "%*" equ "" (goto :eof)
 
-if "%1" equ "-v" (echo yt version: v0.2.2, date: 10/11/2022 (Tue))
+if "%1" equ "-v" (
+	echo yt version: v0.2.2, date: 10/11/2022 (Tue^)
+	goto :eof
+)
 
 if "%1" equ "up" (goto :upgrade)
 
