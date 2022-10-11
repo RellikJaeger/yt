@@ -18,7 +18,7 @@ if "%1" equ "-h" (
 	goto :eof
 )
 if "%1" equ "-v" (
-	echo yt version: v0.2.2, date: 10/12/2022 (Wed^)
+	echo yt version: v0.2.3, date: 10/12/2022 (Wed^)
 	goto :eof
 )
 if "%1" equ "up" (goto :upgrade)
