@@ -24,7 +24,7 @@ if "%1" equ "240" (goto :p240)
 if "%1" equ "144" (goto :p144)
 if "%1" equ "mp3" (goto :mp3)
 
-for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
+set URLs=%*
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
 yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "!URLs!"
 move /y "*.mp4" "%userprofile%\Downloads\Video\">nul
@@ -38,19 +38,19 @@ goto :eof
 
 :help
 echo.
-echo -----------------+------------------------------------+-------------------------------------------
-echo   Commands       ^|  Alias                             ^|  Description
-echo -----------------+------------------------------------+-------------------------------------------
-echo   yt ^<url^>       ^|  yt 1080 ^<url^>                     ^|  Download the best mp4 starting from 1080p
-echo   yt 1080 ^<url^>  ^|                                    ^|  Download 1080p mp4
-echo   yt 720 ^<url^>   ^|                                    ^|  Download 720p mp4
-echo   yt 480 ^<url^>   ^|                                    ^|  Download 480p mp4
-echo   yt 360 ^<url^>   ^|                                    ^|  Download 360p mp4
-echo   yt mp3 ^<url^>   ^|                                    ^|  Download the best mp3
-echo   yt help        ^|  yt -h, yt --help                  ^|  To see this help page
-echo   yt version     ^|  yt -v, yt -version, yt --version  ^|  Check yt version
-echo   yt upgrade     ^|  yt -u, yt up                      ^|  Upgrade (reinstall^) yt
-echo -----------------+------------------------------------+-------------------------------------------
+echo ----------------+-------------------------+-----------------------------------
+echo  Commands       ^| Alias                   ^| Description
+echo ----------------+-------------------------+-----------------------------------
+echo  yt ^<url^>       ^| 1080 ^<url^>              ^| Download best mp4 (1080p to lower^)
+echo  yt 1080 ^<url^>  ^|                         ^| Download 1080p mp4
+echo  yt 720 ^<url^>   ^|                         ^| Download 720p mp4
+echo  yt 480 ^<url^>   ^|                         ^| Download 480p mp4
+echo  yt 360 ^<url^>   ^|                         ^| Download 360p mp4
+echo  yt mp3 ^<url^>   ^|                         ^| Download best mp3
+echo  yt help        ^| -h, --help              ^| To see this help page
+echo  yt version     ^| -v, -version, --version ^| Check yt version
+echo  yt upgrade     ^| -u, up                  ^| Upgrade yt (self-reinstallation^)
+echo ----------------+-------------------------+-----------------------------------
 goto :eof
 
 :p1080
