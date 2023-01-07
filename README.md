@@ -10,7 +10,7 @@ There are currently no other options to choose quality.
 ### Setup example for Termux  
 - Copy and paste this into Termux.
 ```bash
-yes | (termux-setup-storage && pkg update && pkg install x11-repo && pkg install git python ffmpeg phantomjs && python -m pip install --upgrade pip && pip install yt-dlp && git clone -b Termux https://github.com/RellikJaeger/yt && cd yt && chmod +x yt && mv yt ~/../usr/bin && cd .. && rm -rf yt && echo "yt $*" > $HOME/bin/termux-url-opener && chmod +x $HOME/bin/termux-url-opener)
+yes | (termux-setup-storage && pkg update && pkg install x11-repo && pkg install git python ffmpeg phantomjs && python -m pip install --upgrade pip && pip install yt-dlp && git clone -b Termux https://github.com/RellikJaeger/yt && cd yt && chmod +x yt && mv yt $HOME/../usr/bin && cd .. && rm -rf yt && mkdir -p $HOME/bin && echo "yt $*" > $HOME/bin/termux-url-opener && chmod +x $HOME/bin/termux-url-opener)
 ```
 ### Usage example
 - Copy and paste this into Termux.
