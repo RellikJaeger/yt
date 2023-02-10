@@ -1,10 +1,11 @@
-# yt  
+# yt for Windows
   
-**`yt` is just a YouTube video download script for Windows.**  
+**`https://github.com/RellikJaeger/yt/tree/Windows`  
+yt for Windows is just a YouTube video download script for Windows.**  
 > This is a minimal script to download YouTube videos using Windows cmd without extra effort.  
 
 ### Tips
-- Move `yt` file into "C:\Windows\\".  
+- Move `yt` file into "C:\Windows".  
 - Run `yt` in different cmd sessions to download multiple videos in parallel.  
 ### Setup example for Windows  
 - Copy and paste this into cmd.
