@@ -1,8 +1,7 @@
-# yt version: v0.2.3, date: 10/12/2022 (Tue)
+# yt  
+  
 **`yt` is just a YouTube video download script for Windows.**  
-> Video quality is automatically selected from the best quality starting at 1080p to lower.  
-This is a minimal script to download YouTube videos using Windows cmd without extra effort.  
-There are currently no other options to choose quality.  
+> This is a minimal script to download YouTube videos using Windows cmd without extra effort.  
 
 ### Tips
 - Move `yt` file into "C:\Windows\\".  
@@ -27,19 +26,22 @@ powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb ht
 | `yt upgrade`     | `-u`, `up`                    | Upgrade yt (self-reinstallation)
 
 <br><br>
-## IMPORTANT: `&` and `;` are not allowed in cmd arguments! Check your YouTube URLs before pressing `Enter`.
+### IMPORTANT: `&` and `;` are not allowed in cmd arguments! Check your YouTube URLs before pressing `Enter`.
 ### Tips
 - Use shortern URLs or remove unnecessary parameter parts from URLs
-- Read the following example.
+- Use URL encoding for special characters (example online URL encoder: https://urlencoder.org)
 ### Usage example
 - Copy and paste this into cmd.
 ```cmd
 yt https://youtu.be/LxC0kD-GuBQ
 ```
-## IMPORTANT: Series download feature is removed in this Windows version for multiple reasons!
+#### Series download feature is removed in this Windows version for multiple reasons!
 ### Output file path
-- You can find your downloaded video file in the "%UserProfile%\Downloads\Video\" folder.  
-#### Example output path:
-| "C:\Users&#92;\<Username\>\Downloads\Video\Video Name.mp4"             |
-|---|
-> PS: Need to update some parts for general purpose.
+- You can find the downloaded video file in the "Downloads\Video" folder:
+```
+C:\Users\<Username>\Downloads\Video\
+```
+#### Example downloaded video file path:
+```
+C:\Users\<Username>\Downloads\Video\Video Name.mp4
+```
