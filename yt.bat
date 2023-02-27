@@ -27,7 +27,7 @@ if "%1" equ "mp3" (goto :mp3)
 set URLs=%*
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
 pushd "%userprofile%\Downloads\Video\"
-yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "!URLs!"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "!URLs!"
 popd
 goto :eof
 
