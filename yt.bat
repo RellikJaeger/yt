@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set yt_version=version: v0.2.3, date: 10/12/2022 (Wed^)
+set yt_version=version: v0.2.4, date: 2022/03/19 (Sun^)
 
 title yt for Windows !yt_version!
 
@@ -58,7 +58,7 @@ goto :eof
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
 pushd "%userprofile%\Downloads\Video\"
-yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "!URLs!"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "!URLs!"
 popd
 goto :eof
 
@@ -66,7 +66,7 @@ goto :eof
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
 pushd "%userprofile%\Downloads\Video\"
-yt-dlp -o "%%(title)s.%%(ext)s" -f "22/best[ext=mp4]/best" --mtime "!URLs!"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "22/best[ext=mp4]/best" --no-mtime "!URLs!"
 popd
 goto :eof
 
@@ -74,7 +74,7 @@ goto :eof
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
 pushd "%userprofile%\Downloads\Video\"
-yt-dlp -o "%%(title)s.%%(ext)s" -f "397+140/135+140/bestvideo[width<=854][height<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --mtime "!URLs!"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "397+140/135+140/bestvideo[width<=854][height<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "!URLs!"
 popd
 goto :eof
 
@@ -82,7 +82,7 @@ goto :eof
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
 pushd "%userprofile%\Downloads\Video\"
-yt-dlp -o "%%(title)s.%%(ext)s" -f "134+140/18/best[ext=mp4]/best" --mtime "!URLs!"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "134+140/18/best[ext=mp4]/best" --no-mtime "!URLs!"
 popd
 goto :eof
 
@@ -98,7 +98,7 @@ goto :eof
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Music\" (mkdir "%userprofile%\Downloads\Music\")
 pushd "%userprofile%\Downloads\Music\"
-yt-dlp --extract-audio --audio-format mp3 -o "%%(title)s.%%(ext)s" -f "bestaudio[ext=m4a]/bestaudio" --mtime "!URLs!"
+yt-dlp --extract-audio --audio-format mp3 -o "%%(title)s.%%(ext)s" -f "bestaudio[ext=m4a]/bestaudio" --no-mtime "!URLs!"
 popd
 goto :eof
 
