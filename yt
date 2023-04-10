@@ -1,5 +1,7 @@
-mkdir -p /sdcard/Download
-cd /sdcard/Download
+#!/usr/bin/env bash
+mkdir -p $HOME/Downloads/Video
+pushd $HOME/Downloads/Video
 for url in $*; do
-	yt-dlp -o "%(title)s.%(ext)s" -f 137+140/299+140/136+140/bestvideo[width\<=1920][height\<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/b --no-mtime $url
+	yt-dlp -o "%(title)s.%(ext)s" -f 137+140/299+140/136+140/bestvideo[width\<=1920][height\<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/b --no-mtime "$url"
 done
+popd
