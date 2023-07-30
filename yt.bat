@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set yt_version=version: v0.2.4, date: 2023/03/19 (Sun^)
+set yt_version=version: v0.2.5, date: 2023/07/30 (Sun^)
 
 title yt for Windows !yt_version!
 
@@ -108,7 +108,7 @@ echo Please check inside the "%userprofile%" folder.
 goto :eof
 
 :upgrade
-powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo phantomjs && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp && echo. && cls && yt -v && yt -h
+powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://get.scoop.sh | iex; exit" && scoop install git sudo phantomjs && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp && echo. && cls && yt -v && yt -h
 goto :eof
 
 :eof
