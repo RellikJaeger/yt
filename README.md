@@ -10,7 +10,7 @@ yt for Windows is just a YouTube video download script for Windows.**
 ### Setup example for Windows  
 - Copy and paste this into cmd.
 ```cmd
-powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr -useb https://get.scoop.sh | iex; exit" && scoop install git sudo phantomjs && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp && echo. && cls && yt -v && yt -h
+powershell -c "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; irm https://get.scoop.sh | iex; exit" && scoop install git sudo phantomjs && scoop bucket add extras && scoop install python ffmpeg busybox && cd %UserProfile% && rm -rf "./yt/" && git clone -b Windows https://github.com/RellikJaeger/yt && sudo cmd /c move /y ".\yt\yt.bat" "%SystemRoot%\" && rm -rf "./yt/" && python -m pip install --upgrade pip && pip install yt-dlp && echo. && cls && yt -v && yt -h
 ```
 
 ### Available commands
