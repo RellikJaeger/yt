@@ -11,20 +11,20 @@ show_version() {
 
 # Function to display the help information
 show_help() {
-    echo ""
-    echo "----------------+-------------------------+-----------------------------------"
-    echo " Commands       | Alias                   | Description"
-    echo "----------------+-------------------------+-----------------------------------"
-    echo " yt <url>       | 1080 <url>              | Download best mp4 (1080p to lower)"
-    echo " yt 1080 <url>  |                         | Download 1080p mp4"
-    echo " yt 720 <url>   |                         | Download 720p mp4"
-    echo " yt 480 <url>   |                         | Download 480p mp4"
-    echo " yt 360 <url>   |                         | Download 360p mp4"
-    echo " yt mp3 <url>   |                         | Download best mp3"
-    echo " yt help        | -h, --help              | To see this help page"
-    echo " yt version     | -v, -version, --version | Check yt version"
-    echo " yt upgrade     | -u, up                  | Upgrade yt (self-reinstallation)"
-    echo "----------------+-------------------------+-----------------------------------"
+    echo ''
+    echo '----------------+-------------------------+-----------------------------------'
+    echo ' Commands       | Alias                   | Description'
+    echo '----------------+-------------------------+-----------------------------------'
+    echo ' yt "<URL>"     | 1080 "<URL>"            | Download best mp4 (1080p to lower)'
+    echo ' yt 1080 "<URL>"|                         | Download 1080p mp4'
+    echo ' yt 720 "<URL>" |                         | Download 720p mp4'
+    echo ' yt 480 "<URL>" |                         | Download 480p mp4'
+    echo ' yt 360 "<URL>" |                         | Download 360p mp4'
+    echo ' yt mp3 "<URL>" |                         | Download best mp3'
+    echo ' yt help        | -h, --help              | To see this help page'
+    echo ' yt version     | -v, -version, --version | Check yt version'
+    echo ' yt upgrade     | -u, up                  | Upgrade yt (self-reinstallation)'
+    echo '----------------+-------------------------+-----------------------------------'
 }
 
 # Function for video quality options
@@ -84,35 +84,7 @@ case "$1" in
         show_version
         ;;
     "-u" | "up" | "upgrade")
-        # Check if the script is running on macOS
-        if [[ "$(uname)" == "Darwin" ]]; then
-            # Inform the user about checking for Homebrew
-            echo "Checking for Homebrew..."
-            
-            # Install Homebrew package manager if not already installed
-            if ! command -v brew &>/dev/null; then
-                NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            else
-                echo "Homebrew is already installed. Checking for updates..."
-                brew update
-            fi
-            
-            # Install required packages
-            brew install git phantomjs python ffmpeg
-            cd "$HOME" || exit
-            rm -rf "./yt/"
-            git clone -b macOS https://github.com/RellikJaeger/yt
-            mkdir -p "$HOME/.local/bin"
-            mv "./yt/yt" "$HOME/.local/bin/yt"
-            rm -rf "./yt/"
-            python -m pip install --upgrade --force-reinstall yt-dlp
-            echo ""
-            clear
-            show_version
-            show_help
-        else
-            echo "Homebrew installation is only supported on macOS."
-        fi
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git phantomjs python ffmpeg && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && rm -rf "./yt/" && python -m pip install --upgrade --force-reinstall yt-dlp && echo "" && clear && yt -v && yt -h
         ;;
     *)
         download_video "$@"

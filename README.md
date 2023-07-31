@@ -14,17 +14,17 @@ NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ho
 ```
 
 ### Available commands
-| Commands         | Alias                         | Description
-|------------------|-------------------------------|-----------------------------------
-| `yt "<URL>"`     | `1080 "<URL>"`                | Download best mp4 (1080p to lower)
-| `yt 1080 "<URL>"`|                               | Download 1080p mp4
-| `yt 720 "<URL>"` |                               | Download 720p mp4
-| `yt 480 "<URL>"` |                               | Download 480p mp4
-| `yt 360 "<URL>"` |                               | Download 360p mp4
-| `yt mp3 "<URL>"` |                               | Download best mp3
-| `yt help`        | `-h`, `--help`                | To see this help page
-| `yt version`     | `-v`, `-version`, `--version` | Check yt version
-| `yt upgrade`     | `-u`, `up`                    | Upgrade yt (self-reinstallation)
+| Commands          | Alias                         | Description                        |
+| ----------------- | ----------------------------- | ---------------------------------- |
+| `yt "<URL>"`      | `1080 "<URL>"`                | Download best mp4 (1080p to lower) |
+| `yt 1080 "<URL>"` |                               | Download 1080p mp4                 |
+| `yt 720 "<URL>"`  |                               | Download 720p mp4                  |
+| `yt 480 "<URL>"`  |                               | Download 480p mp4                  |
+| `yt 360 "<URL>"`  |                               | Download 360p mp4                  |
+| `yt mp3 "<URL>"`  |                               | Download best mp3                  |
+| `yt help`         | `-h`, `--help`                | To see this help page              |
+| `yt version`      | `-v`, `-version`, `--version` | Check yt version                   |
+| `yt upgrade`      | `-u`, `up`                    | Upgrade yt (self-reinstallation)   |
 
 <br><br>
 ### IMPORTANT: You need to put the URLs in quotes `yt 720 "URL1" "URL2" "URL3"`! Check your YouTube URLs before pressing `Enter`.
