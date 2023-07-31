@@ -47,7 +47,7 @@ download_video() {
             ;;
         "480")
             URLs="${URLs//480 /}"
-            yt-dlp -o "%(title)s.%(ext)s" -f "397+140/135+140/bestvideo[width\<=854][height\<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
+            yt-dlp -o "%(title)s.%(ext)s" -f "397+140/135+140/bestvideo[width<=854][height<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
             ;;
         "360")
             URLs="${URLs//360 /}"
@@ -65,7 +65,7 @@ download_video() {
             ;;
         *)
             URLs="${URLs//1080 /}"
-            yt-dlp -o "%(title)s.%(ext)s" -f "137+140/299+140/bestvideo[width\<=1920][height\<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
+            yt-dlp -o "%(title)s.%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
             ;;
     esac
 }
