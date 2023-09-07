@@ -1,5 +1,91 @@
-mkdir -p /sdcard/Download
-cd /sdcard/Download
-for url in $*; do
-	yt-dlp -o "%(title)s.%(ext)s" -f 137+140/299+140/136+140/bestvideo[width\<=1920][height\<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/b --no-mtime $url
-done
+#!/bin/bash
+
+yt_version="version: v0.2.5, date: 2023/09/07 (Thu)"
+
+# Function to display the version information
+show_version() {
+    echo ""
+    echo "   yt $yt_version"
+    echo ""
+}
+
+# Function to display the help information
+show_help() {
+    echo '----------------+-------------------------+-----------------------------------'
+    echo ' Commands       | Alias                   | Description'
+    echo '----------------+-------------------------+-----------------------------------'
+    echo ' yt <URL>       | 1080 <URL>              | Download best mp4 (1080p to lower)'
+    echo ' yt 1080 <URL>  |                         | Download 1080p mp4'
+    echo ' yt 720 <URL>   |                         | Download 720p mp4'
+    echo ' yt 480 <URL>   |                         | Download 480p mp4'
+    echo ' yt 360 <URL>   |                         | Download 360p mp4'
+    echo ' yt mp3 <URL>   |                         | Download best mp3'
+    echo ' yt help        | -h, --help              | To see this help page'
+    echo ' yt version     | -v, -version, --version | Check yt version'
+    echo ' yt upgrade     | -u, up                  | Upgrade yt (self-reinstallation)'
+    echo '----------------+-------------------------+-----------------------------------'
+}
+
+# Function for video quality options
+download_video() {
+    local quality="$1"
+    # shift
+    local URLs="$*"
+    
+    if [ "$quality" != "mp3" ]; then
+        mkdir -p "/sdcard/Download"
+        cd "/sdcard/Download" || exit
+    else
+        mkdir -p "/sdcard/Download"
+        cd "/sdcard/Download" || exit
+    fi
+
+    case "$quality" in
+        "720")
+			URLs="${URLs//720 /}"
+            yt-dlp -o "%(title)s.%(ext)s" -f "22/best[ext=mp4]/best" --no-mtime "$URLs"
+            ;;
+        "480")
+            URLs="${URLs//480 /}"
+            yt-dlp -o "%(title)s.%(ext)s" -f "397+140/135+140/bestvideo[width<=854][height<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
+            ;;
+        "360")
+            URLs="${URLs//360 /}"
+            yt-dlp -o "%(title)s.%(ext)s" -f "134+140/18/best[ext=mp4]/best" --no-mtime "$URLs"
+            ;;
+        "240")
+            echo "240p is not implemented."
+            ;;
+        "144")
+            echo "144p is not implemented."
+            ;;
+        "mp3")
+            URLs="${URLs//mp3 /}"
+            yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" -f "bestaudio[ext=m4a]/bestaudio" --no-mtime "$URLs"
+            ;;
+        *)
+            URLs="${URLs//1080 /}"
+            yt-dlp -o "%(title)s.%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
+            ;;
+    esac
+}
+
+# Main script
+if [ -z "$1" ]; then
+    exit
+fi
+
+case "$1" in
+    "-h" | "--help" | "help")
+        show_help
+        ;;
+    "-v" | "version" | "-version" | "--version")
+        show_version
+        ;;
+    "-u" | "up" | "upgrade")
+        yes | (termux-setup-storage && pkg update && pkg install x11-repo && pkg install git python ffmpeg phantomjs && pip install yt-dlp && git clone -b Termux https://github.com/RellikJaeger/yt && cd yt && chmod +x yt && mv yt $HOME/../usr/bin && cd .. && rm -rf yt && mkdir -p $HOME/bin && echo "yt \$*" > $HOME/bin/termux-url-opener && chmod +x $HOME/bin/termux-url-opener)
+        ;;
+    *)
+        download_video "$@"
+        ;;
+esac
