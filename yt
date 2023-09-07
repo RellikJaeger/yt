@@ -30,7 +30,7 @@ show_help() {
 download_video() {
     local quality="$1"
     # shift
-    local URLs="$*"
+    local URLs=$*
     
     if [ "$quality" != "mp3" ]; then
         mkdir -p "/sdcard/Download"
@@ -42,16 +42,22 @@ download_video() {
 
     case "$quality" in
         "720")
-			URLs="${URLs//720 /}"
-            yt-dlp -o "%(title)s.%(ext)s" -f "22/best[ext=mp4]/best" --no-mtime "$URLs"
+			      URLs="${URLs//720 /}"
+            for url in $*; do
+              yt-dlp -o "%(title)s.%(ext)s" -f 22/best[ext=mp4]/best --no-mtime $URLs
+            done
             ;;
         "480")
             URLs="${URLs//480 /}"
-            yt-dlp -o "%(title)s.%(ext)s" -f "397+140/135+140/bestvideo[width<=854][height<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
+            for url in $*; do
+              yt-dlp -o "%(title)s.%(ext)s" -f 397+140/135+140/bestvideo[width\<=854][height\<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --no-mtime $URLs
+            done
             ;;
         "360")
             URLs="${URLs//360 /}"
-            yt-dlp -o "%(title)s.%(ext)s" -f "134+140/18/best[ext=mp4]/best" --no-mtime "$URLs"
+            for url in $*; do
+              yt-dlp -o "%(title)s.%(ext)s" -f 134+140/18/best[ext=mp4]/best --no-mtime $URLs
+            done
             ;;
         "240")
             echo "240p is not implemented."
@@ -61,11 +67,15 @@ download_video() {
             ;;
         "mp3")
             URLs="${URLs//mp3 /}"
-            yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" -f "bestaudio[ext=m4a]/bestaudio" --no-mtime "$URLs"
+            for url in $*; do
+              yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" -f bestaudio[ext=m4a]/bestaudio --no-mtime $URLs
+            done
             ;;
         *)
             URLs="${URLs//1080 /}"
-            yt-dlp -o "%(title)s.%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "$URLs"
+            for url in $*; do
+              yt-dlp -o "%(title)s.%(ext)s" -f 137+140/299+140/bestvideo[width\<=1920][height\<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --no-mtime $URLs
+            done
             ;;
     esac
 }
