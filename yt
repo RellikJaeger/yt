@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yt_version="version: v0.2.5, date: 2023/09/07 (Thu)"
+yt_version="version: v0.2.6, date: Fri April 19, 2024""
 
 # Function to display the version information
 show_version() {
@@ -19,6 +19,7 @@ show_help() {
     echo ' yt 720 <URL>   |                         | Download 720p mp4'
     echo ' yt 480 <URL>   |                         | Download 480p mp4'
     echo ' yt 360 <URL>   |                         | Download 360p mp4'
+    echo ' yt 240 <URL>   |                         | Download 240p mp4'
     echo ' yt mp3 <URL>   |                         | Download best mp3'
     echo ' yt help        | -h, --help              | To see this help page'
     echo ' yt version     | -v, -version, --version | Check yt version'
@@ -44,26 +45,29 @@ download_video() {
         "720")
 			      URLs="${URLs//720 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f 22/best[ext=mp4]/best --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
         "480")
             URLs="${URLs//480 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f 397+140/135+140/bestvideo[width\<=854][height\<=854][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
         "360")
             URLs="${URLs//360 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f 134+140/18/best[ext=mp4]/best --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
         "240")
-            echo "240p is not implemented."
+            URLs="${URLs//240 /}"
+            for url in $*; do
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+            done
             ;;
         "144")
-            echo "144p is not implemented."
+            echo "144p is not available"
             ;;
         "mp3")
             URLs="${URLs//mp3 /}"
@@ -74,7 +78,7 @@ download_video() {
         *)
             URLs="${URLs//1080 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f 137+140/299+140/bestvideo[width\<=1920][height\<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
     esac
@@ -93,7 +97,7 @@ case "$1" in
         show_version
         ;;
     "-u" | "up" | "upgrade")
-        yes | (termux-setup-storage && apt update && apt upgrade -y && pkg update && pkg install x11-repo && pkg install git python python-pip ffmpeg phantomjs && python -m pip install --upgrade --force-reinstall yt-dlp && git clone -b Termux https://github.com/RellikJaeger/yt && cd yt && chmod a+x yt && mv yt $HOME/../usr/bin && cd .. && rm -rf yt && mkdir -p $HOME/bin && echo "yt \$*" > $HOME/bin/termux-url-opener && chmod a+x $HOME/bin/termux-url-opener) && clear && yt -v && yt -h
+        yes | (termux-setup-storage && apt update && apt upgrade -y && pkg update && pkg install x11-repo && pkg install git python python-pip ffmpeg phantomjs && python -m pip install --upgrade --force-reinstall yt-dlp && git clone -b Termux https://github.com/RellikJaeger/yt && cd yt && chmod a+x yt && mkdir -p $HOME/bin && mv yt $HOME/bin && cd .. && rm -rf yt && echo "yt \$*" > $HOME/bin/termux-url-opener && chmod a+x $HOME/bin/termux-url-opener) && rm -rf $HOME/../usr/bin/yt $HOME/.local/bin/yt && clear && yt -v && yt -h
         ;;
     *)
         download_video "$@"
