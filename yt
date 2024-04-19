@@ -19,7 +19,7 @@ show_help() {
     echo ' yt 720 "<URL>" |                         | Download 720p mp4'
     echo ' yt 480 "<URL>" |                         | Download 480p mp4'
     echo ' yt 360 "<URL>" |                         | Download 360p mp4'
-    echo ' yt 240 <URL>   |                         | Download 240p mp4'
+    echo ' yt 240 "<URL>" |                         | Download 240p mp4'
     echo ' yt mp3 "<URL>" |                         | Download best mp3'
     echo ' yt help        | -h, --help              | To see this help page'
     echo ' yt version     | -v, -version, --version | Check yt version'
@@ -97,7 +97,7 @@ case "$1" in
         show_version
         ;;
     "-u" | "up" | "upgrade")
-        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git phantomjs python ffmpeg && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && rm -rf "./yt/" && python -m pip install --upgrade --force-reinstall yt-dlp && echo "" && clear && yt -v && yt -h
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git phantomjs python ffmpeg && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && rm -rf "./yt/" && pip install --upgrade --force-reinstall yt-dlp && echo "" && clear && yt -v && yt -h
         ;;
     *)
         download_video "$@"
