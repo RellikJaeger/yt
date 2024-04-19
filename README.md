@@ -10,7 +10,7 @@ yt for macOS is just a YouTube video download script for macOS.**
 ### Setup example for macOS  
 - Copy and paste this into terminal.
 ```shell
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git phantomjs python ffmpeg && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && rm -rf "./yt/" && pip install --upgrade --force-reinstall yt-dlp && echo "" && clear && yt -v && yt -h
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git phantomjs python ffmpeg && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && rm -rf "./yt/" && pip install --upgrade --force-reinstall yt-dlp && echo "" && clear && yt -v && yt -h
 ```
 
 ### Available commands
