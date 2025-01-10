@@ -5,7 +5,7 @@ This is a minimal script to download YouTube videos using Termux without extra e
 There are currently no other options to choose quality.  
 
 ### Tips
-- Move `yt` file into your preferred bin folder.  
+- Move `yt` file into your preferred bin folder.  (Default location: `/data/data/com.termux/files/usr/bin/yt` aka `$PREFIX/bin/yt`)
 - Run `yt` in different Termux sessions to download multiple videos in parallel.  
 ### Setup example for Termux  
 - Copy and paste this into Termux.
