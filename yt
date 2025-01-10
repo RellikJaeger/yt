@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yt_version="version: v0.2.6, date: Fri April 19, 2024"
+yt_version="version: v0.2.7, date: Fri January 10, 2025"
 
 # Function to display the version information
 show_version() {
@@ -45,25 +45,25 @@ download_video() {
         "720")
 			      URLs="${URLs//720 /}"
             for url in $*; do
-              yt-dlp -o "$(title)s.$(ext)s" -f "bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
         "480")
             URLs="${URLs//480 /}"
             for url in $*; do
-              yt-dlp -o "$(title)s.$(ext)s" -f "bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
         "360")
             URLs="${URLs//360 /}"
             for url in $*; do
-              yt-dlp -o "$(title)s.$(ext)s" -f "bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
         "240")
             URLs="${URLs//240 /}"
             for url in $*; do
-              yt-dlp -o "$(title)s.$(ext)s" -f "bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
         "144")
@@ -72,13 +72,13 @@ download_video() {
         "mp3")
             URLs="${URLs//mp3 /}"
             for url in $*; do
-              yt-dlp --extract-audio --audio-format mp3 -o "$(title)s.$(ext)s" -f bestaudio[ext=m4a]/bestaudio --no-mtime $URLs
+              yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" -f bestaudio[ext=m4a]/bestaudio --no-mtime $URLs
             done
             ;;
         *)
             URLs="${URLs//1080 /}"
             for url in $*; do
-              yt-dlp -o "$(title)s.$(ext)s" -f "bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "137+140/299+140/136+140/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]/b[ext^=mp4]/b" --no-mtime $URLs
             done
             ;;
     esac
