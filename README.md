@@ -10,7 +10,7 @@ There are currently no other options to choose quality.
 ### Setup example for Termux  
 - Copy and paste this into Termux.
 ```bash
-yes | (termux-setup-storage && apt update && apt upgrade -y && pkg update && pkg install git python python-pip ffmpeg && pip install phantomjs && python -m pip install --upgrade --force-reinstall yt-dlp && git clone -b Termux --depth 1 https://github.com/RellikJaeger/yt && cd yt && chmod a+x yt && mkdir -p $HOME/bin && mv yt $HOME/bin && cd .. && rm -rf yt && echo "yt \$*" > $HOME/bin/termux-url-opener && chmod a+x $HOME/bin/termux-url-opener) && rm -rf $HOME/../usr/bin/yt $HOME/.local/bin/yt && if ! grep -qxF "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then echo "export PATH=\$HOME/bin:\$PATH" >> $HOME/.bashrc; fi && source $HOME/.bashrc && clear && yt -v && yt -h
+yes | (termux-setup-storage && apt update && apt upgrade -y && pkg update && pkg install git python python-pip ffmpeg && pip install phantomjs && python -m pip install --upgrade --force-reinstall yt-dlp && git clone -b Termux --depth 1 https://github.com/RellikJaeger/yt && chmod a+x yt/yt && mv yt/yt $PREFIX/bin && rm -rf yt && mkdir -p $HOME/bin && echo "bash yt \$*" > $HOME/bin/termux-url-opener && chmod a+x $HOME/bin/termux-url-opener) && rm -rf $HOME/bin/yt $HOME/.local/bin/yt && if ! grep -qxF "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then echo "export PATH=\$HOME/bin:\$PATH" >> $HOME/.bashrc; fi && source $HOME/.bashrc && clear && yt -v && yt -h
 ```
 ### Usage example
 - Copy and paste this into Termux.
