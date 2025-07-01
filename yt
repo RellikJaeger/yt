@@ -78,7 +78,7 @@ download_video() {
         *)
             URLs="${URLs//1080 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "312+234/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "312+234/270+234/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
             done
             ;;
     esac
