@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yt_version="version: v0.2.7, date: Fri January 10, 2025"
+yt_version="version: v0.2.8, date: Wed July 2, 2025"
 
 # Function to display the version information
 show_version() {
@@ -78,7 +78,7 @@ download_video() {
         *)
             URLs="${URLs//1080 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "312+234/137+140/299+140/136+140/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]/b[ext^=mp4]/b" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "312+234/270+234/137+140/299+140/136+140/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]/b[ext^=mp4]/b" --no-mtime $URLs
             done
             ;;
     esac
