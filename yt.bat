@@ -58,7 +58,7 @@ goto :eof
 for /f "tokens=1,* delims= " %%a in ("%*") do set URLs=%%b
 if not exist "%userprofile%\Downloads\Video\" (mkdir "%userprofile%\Downloads\Video\")
 pushd "%userprofile%\Downloads\Video\"
-yt-dlp -o "%%(title)s.%%(ext)s" -f "137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "!URLs!"
+yt-dlp -o "%%(title)s.%%(ext)s" -f "312+234/137+140/299+140/bestvideo[width<=1920][height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --no-mtime "!URLs!"
 popd
 goto :eof
 
