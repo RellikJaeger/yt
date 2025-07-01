@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set yt_version=version: v0.2.5, date: 2023/07/30 (Sun^)
+set yt_version=version: v0.2.8, date: Wed July 2, 2025
 
 title yt for Windows !yt_version!
 
