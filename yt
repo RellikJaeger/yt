@@ -30,40 +30,36 @@ show_help() {
 # Function for video quality options
 download_video() {
     local quality="$1"
-    # shift
-    local URLs=$*
-    
-    if [ "$quality" != "mp3" ]; then
-        mkdir -p "/sdcard/Download"
-        cd "/sdcard/Download" || exit
-    else
-        mkdir -p "/sdcard/Download"
-        cd "/sdcard/Download" || exit
-    fi
+    shift
+    local URLs="$*"
+
+    DOWNLOAD_DIR="$HOME/Downloads"
+    mkdir -p "$DOWNLOAD_DIR"
+    cd "$DOWNLOAD_DIR" || exit
 
     case "$quality" in
         "720")
-			      URLs="${URLs//720 /}"
+            URLs="${URLs//720 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime "$URLs"
             done
             ;;
         "480")
             URLs="${URLs//480 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime "$URLs"
             done
             ;;
         "360")
             URLs="${URLs//360 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime "$URLs"
             done
             ;;
         "240")
             URLs="${URLs//240 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime "$URLs"
             done
             ;;
         "144")
@@ -72,13 +68,13 @@ download_video() {
         "mp3")
             URLs="${URLs//mp3 /}"
             for url in $*; do
-              yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" -f bestaudio[ext=m4a]/bestaudio --no-mtime $URLs
+              yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" -f bestaudio[ext=m4a]/bestaudio --no-mtime "$URLs"
             done
             ;;
         *)
             URLs="${URLs//1080 /}"
             for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "312+234/270+234/270+234-9/137+140/299+140/136+140/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]/b[ext^=mp4]/b" --no-mtime $URLs
+              yt-dlp -o "%(title)s.%(ext)s" -f "312+234/270+234/270+234-9/137+140/299+140/136+140/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]/b[ext^=mp4]/b" --no-mtime "$URLs"
             done
             ;;
     esac
@@ -97,7 +93,11 @@ case "$1" in
         show_version
         ;;
     "-u" | "up" | "upgrade")
-        yes | (termux-setup-storage && apt update && apt upgrade -y && pkg update && pkg install git python python-pip ffmpeg && pip install phantomjs && python -m pip install --upgrade --force-reinstall yt-dlp && git clone -b Termux --depth 1 https://github.com/RellikJaeger/yt && chmod a+x yt/yt && mv yt/yt $PREFIX/bin && rm -rf yt && mkdir -p $HOME/bin && echo "bash yt \$*" > $HOME/bin/termux-url-opener && chmod a+x $HOME/bin/termux-url-opener) && rm -rf $HOME/bin/yt $HOME/.local/bin/yt && if ! grep -qxF "export PATH=\$HOME/bin:\$PATH" "$HOME/.bashrc"; then echo "export PATH=\$HOME/bin:\$PATH" >> $HOME/.bashrc; fi && source $HOME/.bashrc && clear && yt -v && yt -h
+        echo "Upgrading yt..."
+        apt update && apt upgrade -y
+        apt install -y git python3 python3-pip ffmpeg
+        pip3 install --upgrade --force-reinstall yt-dlp
+        echo "yt upgraded!"
         ;;
     *)
         download_video "$@"
