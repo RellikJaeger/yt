@@ -12,22 +12,28 @@ YT_COMMON_OPTS=(
     --remote-components ejs:github
 )
 
+# Function to display the version information
 show_version() {
     echo ""
     echo "   yt $yt_version"
     echo ""
 }
 
+# Function to display the help information
 show_help() {
     echo '----------------+-------------------------+-----------------------------------'
-    echo ' yt "<URL>"     |                         | Download best mp4 (Max 1080p)'
+    echo ' Commands       | Alias                   | Description'
+    echo '----------------+-------------------------+-----------------------------------'
+    echo ' yt "<URL>"     | 1080 "<URL>"            | Download best mp4 (1080p to lower)'
+    echo ' yt 1080 "<URL>"|                         | Download 1080p mp4'
     echo ' yt 720 "<URL>" |                         | Download 720p mp4'
     echo ' yt 480 "<URL>" |                         | Download 480p mp4'
     echo ' yt 360 "<URL>" |                         | Download 360p mp4'
-    echo ' yt mp3 "<URL>" |                         | Download mp3'
-    echo ' yt help        |                         | Help'
-    echo ' yt version     |                         | Version'
-    echo ' yt upgrade     |                         | Upgrade'
+    echo ' yt 240 "<URL>" |                         | Download 240p mp4'
+    echo ' yt mp3 "<URL>" |                         | Download best mp3'
+    echo ' yt help        | -h, --help              | To see this help page'
+    echo ' yt version     | -v, -version, --version | Check yt version'
+    echo ' yt upgrade     | -u, up                  | Upgrade yt (self-reinstallation)'
     echo '----------------+-------------------------+-----------------------------------'
 }
 
@@ -62,9 +68,9 @@ run_ytdlp() {
 download_video() {
     local quality="$1"
     
-    # Check if the first argument is a quality flag or a direct URL
+    # Check if the first argument matches any known quality flag or an alias
     case "$quality" in
-        720|480|360|240|mp3)
+        720|480|360|240|1080|mp3)
             shift
             local urls=("$@")
             ;;
@@ -75,22 +81,27 @@ download_video() {
             ;;
     esac
 
-    # Ensure output directory exists
-    mkdir -p "$HOME/Downloads/Video/"
-    cd "$HOME/Downloads/Video/" || exit
+    # Ensure output directories exist correctly based on format
+    if [ "$quality" != "mp3" ]; then
+        mkdir -p "$HOME/Downloads/Video/"
+        cd "$HOME/Downloads/Video/" || exit
+    else
+        mkdir -p "$HOME/Downloads/Music/"
+        cd "$HOME/Downloads/Music/" || exit
+    fi
 
     case "$quality" in
         "720")
-            run_ytdlp 'bv*[height<=1280]+ba' "${urls[@]}"
+            run_ytdlp 'bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' "${urls[@]}"
             ;;
         "480")
-            run_ytdlp 'bv*[height<=854]+ba' "${urls[@]}"
+            run_ytdlp 'bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' "${urls[@]}"
             ;;
         "360")
-            run_ytdlp 'bv*[height<=640]+ba' "${urls[@]}"
+            run_ytdlp 'bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' "${urls[@]}"
             ;;
         "240")
-            run_ytdlp 'bv*[height<=426]+ba' "${urls[@]}"
+            run_ytdlp 'bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' "${urls[@]}"
             ;;
         "mp3")
             for url in "${urls[@]}"; do
@@ -107,27 +118,27 @@ download_video() {
             done
             ;;
         *)
-            # Default fallback (Max 1080p)
-            run_ytdlp 'bv*[height<=1920]+ba/b[height<=1920]' "${urls[@]}"
+            # Default or explicit 1080p fallback using your preferred format preferences
+            run_ytdlp '312+234/270+234/270+234-9/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' "${urls[@]}"
             ;;
     esac
 }
 
 # ---------------- MAIN ----------------
 
+if [ -z "$1" ]; then
+    exit
+fi
+
 case "$1" in
     "-h"|"--help"|"help")
         show_help
         ;;
-    "-v"|"version")
+    "-v"|"version"|"-version"|"--version")
         show_version
         ;;
     "-u"|"up"|"upgrade")
-        echo "🔄 Updating packages via Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew update && brew upgrade && brew install git python ffmpeg aria2 deno yt-dlp && brew cleanup --prune=all && cd "$HOME" && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && chmod a+x "$HOME/.local/bin/yt" && rm -rf "./yt/" && clear && yt -v && yt -h
-        ;;
-    "")
-        echo "No input provided. Try: yt help"
         ;;
     *)
         download_video "$@"
