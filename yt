@@ -124,7 +124,7 @@ case "$1" in
         show_version
         ;;
     "-u" | "up" | "upgrade")
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew update && brew upgrade && brew install git python ffmpeg aria2 deno yt-dlp && brew --prune=all && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && chmod a+x "$HOME/.local/bin/yt" && rm -rf "./yt/" && clear && yt -v && yt -h
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew update && brew upgrade && brew install git python ffmpeg aria2 deno yt-dlp && brew cleanup --prune=all && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && chmod a+x "$HOME/.local/bin/yt" && rm -rf "./yt/" && clear && yt -v && yt -h
         ;;
     *)
         download_video "$@"
