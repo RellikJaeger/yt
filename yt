@@ -1,15 +1,23 @@
 #!/bin/bash
 
-yt_version="version: v0.2.8, date: Wed July 2, 2025"
+yt_version="version: v0.2.9, date: Tue June 23, 2026"
 
-# Function to display the version information
+# Browser priority list for cookie fallback
+BROWSERS=("firefox" "chrome" "brave" "edge" "vivaldi")
+
+# Common yt-dlp options
+YT_COMMON_OPTS=(
+    --no-mtime
+    --downloader aria2c
+    --remote-components ejs:github
+)
+
 show_version() {
     echo ""
     echo "   yt $yt_version"
     echo ""
 }
 
-# Function to display the help information
 show_help() {
     echo '----------------+-------------------------+-----------------------------------'
     echo ' Commands       | Alias                   | Description'
@@ -27,12 +35,31 @@ show_help() {
     echo '----------------+-------------------------+-----------------------------------'
 }
 
-# Function for video quality options
+run_ytdlp_with_cookies() {
+    local quality="$1"
+    shift
+    local URLs=("$@")
+
+    for url in "${URLs[@]}"; do
+
+        for browser in "${BROWSERS[@]}"; do
+            echo "🍪 Trying cookies from: $browser"
+
+            yt-dlp \
+                "${YT_COMMON_OPTS[@]}" \
+                --cookies-from-browser "$browser" \
+                -o "%(title)s.%(ext)s" \
+                "$quality" \
+                "$url" && break
+        done
+    done
+}
+
 download_video() {
     local quality="$1"
-    # shift
-    local URLs="$*"
-    
+    shift
+    local URLs=("$@")
+
     if [ "$quality" != "mp3" ]; then
         mkdir -p "$HOME/Downloads/Video/"
         cd "$HOME/Downloads/Video/" || exit
@@ -43,43 +70,43 @@ download_video() {
 
     case "$quality" in
         "720")
-			      URLs="${URLs//720 /}"
-            for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
-            done
+            run_ytdlp_with_cookies \
+                '-f bv*[height<=1280][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' \
+                "${URLs[@]}"
             ;;
         "480")
-            URLs="${URLs//480 /}"
-            for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
-            done
+            run_ytdlp_with_cookies \
+                '-f bv*[height<=854][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' \
+                "${URLs[@]}"
             ;;
         "360")
-            URLs="${URLs//360 /}"
-            for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
-            done
+            run_ytdlp_with_cookies \
+                '-f bv*[height<=640][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' \
+                "${URLs[@]}"
             ;;
         "240")
-            URLs="${URLs//240 /}"
-            for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
-            done
-            ;;
-        "144")
-            echo "144p is not available"
+            run_ytdlp_with_cookies \
+                '-f bv*[height<=426][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' \
+                "${URLs[@]}"
             ;;
         "mp3")
-            URLs="${URLs//mp3 /}"
-            for url in $*; do
-              yt-dlp --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" -f bestaudio[ext=m4a]/bestaudio --no-mtime $URLs
+            for url in "${URLs[@]}"; do
+                for browser in "${BROWSERS[@]}"; do
+                    yt-dlp \
+                        "${YT_COMMON_OPTS[@]}" \
+                        --cookies-from-browser "$browser" \
+                        --extract-audio \
+                        --audio-format mp3 \
+                        -o "%(title)s.%(ext)s" \
+                        -f bestaudio[ext=m4a]/bestaudio \
+                        "$url" && break
+                done
             done
             ;;
         *)
-            URLs="${URLs//1080 /}"
-            for url in $*; do
-              yt-dlp -o "%(title)s.%(ext)s" -f "312+234/270+234/270+234-9/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]" --no-mtime $URLs
-            done
+            run_ytdlp_with_cookies \
+                '-f bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' \
+                "${URLs[@]}"
             ;;
     esac
 }
@@ -97,7 +124,19 @@ case "$1" in
         show_version
         ;;
     "-u" | "up" | "upgrade")
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git python ffmpeg && cd "$HOME" || exit && rm -rf "./yt/" && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt && mkdir -p "$HOME/.local/bin" && source "$HOME/.zshrc" && mv "./yt/yt" "$HOME/.local/bin/yt" && rm -rf "./yt/" && pip install --upgrade --force-reinstall yt-dlp && echo "" && clear && yt -v && yt -h
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
+        && brew install git python ffmpeg aria2 deno \
+        && cd "$HOME" || exit \
+        && rm -rf "./yt/" \
+        && git clone -b macOS --depth 1 https://github.com/RellikJaeger/yt \
+        && mkdir -p "$HOME/.local/bin" \
+        && source "$HOME/.zshrc" \
+        && mv "./yt/yt" "$HOME/.local/bin/yt" \
+        && rm -rf "./yt/" \
+        && pip install --upgrade --force-reinstall "yt-dlp[default]" \
+        && clear \
+        && yt -v \
+        && yt -h
         ;;
     *)
         download_video "$@"
