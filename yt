@@ -111,7 +111,7 @@ download_video() {
             run_ytdlp "audio" "" "${urls[@]}"
             ;;
         *)
-            run_ytdlp "video" '299+140/312+234/270+234/270+234-9/301/96/136+140/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' "${urls[@]}"
+            run_ytdlp "video" '299+140/312+234/270+234/270+234-9/301/96/96-1/95/136+140/300/bv*[height<=1920][ext=mp4][vcodec^=avc1]+ba*[ext=m4a]' "${urls[@]}"
             ;;
     esac
 }
